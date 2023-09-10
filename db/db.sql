@@ -50,6 +50,19 @@ VALUES(
   '2023-06-29'
 );
 
+INSERT INTO roles(
+	name,
+    route,
+    created_at,
+    updated_at
+)
+VALUES(
+	'REPARTIDOR',
+    '/delivery/orders/list',
+    '2023-08-07',
+    '2023-08-07'
+);
+
 CREATE TABLE user_has_roles(
 	id_user BIGINT NOT NULL,
     id_rol BIGINT NOT NULL,
@@ -70,5 +83,44 @@ image1 VARCHAR(255) NULL,
 created_at TIMESTAMP(0) NOT NULL,
 updated_at TIMESTAMP(0) NOT NULL
 )
+
+CREATE TABLE address(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    address VARCHAR(255) NOT NULL,
+    neighborhood VARCHAR(180) NOT NULL,
+    lat DOUBLE PRECISION NOT NULL,
+    lng DOUBLE PRECISION NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
+    id_user BIGINT NOT NULL,
+    FOREIGN KEY(id_user) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE TABLE orders(
+	id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    id_client BIGINT NOT NULL,
+    id_delivery BIGINT NULL,
+    id_address BIGINT NOT NULL,
+    lat DOUBLE PRECISION,
+    lng DOUBLE PRECISION,
+    status VARCHAR(90) NOT NULL,
+    timestamp BIGINT NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
+    FOREIGN KEY(id_client) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_delivery) REFERENCES users(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_address) REFERENCES address(id) ON UPDATE CASCADE ON DELETE CASCADE
+); 
+
+CREATE TABLE order_has_products(
+	id_order BIGINT NOT NULL,
+    id_product BIGINT NOT NULL,
+    quantity BIGINT NOT NULL,
+    created_at TIMESTAMP(0) NOT NULL,
+    updated_at TIMESTAMP(0) NOT NULL,
+    PRIMARY KEY(id_order, id_product),
+    FOREIGN KEY(id_order) REFERENCES orders(id) ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY(id_product) REFERENCES products(id) ON UPDATE CASCADE ON DELETE CASCADE
+);
 
 

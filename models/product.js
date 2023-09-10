@@ -2,6 +2,37 @@ const db = require('../config/config')
 
 const Product = {}
 
+Product.getAll = (result) => {
+    const sql = `
+    SELECT
+        id,
+        name,
+        descripcion,
+        price,
+        image1
+        
+    FROM
+        products
+ 
+    ORDER BY
+        name
+    `;
+
+    db.query(
+        sql,
+        (err, data) => {
+            if (err) {
+                console.log('Error:', err);
+                result(err, null);
+            }
+            else {
+                console.log('Id del nuevo Producto', data);
+                result(null, data);
+            }
+        }
+    )
+}
+
 Product.create = (product, result) =>{
     const sql = `
     INSERT INTO
@@ -48,7 +79,7 @@ Product.update = (product, result) => {
         products
     SET
         name = ?,
-        description = ?,
+        descripcion = ?,
         price = ?,
         image1 = ?,        
         updated_at = ?
@@ -60,7 +91,7 @@ Product.update = (product, result) => {
         sql, 
         [
             product.name,
-            product.description,
+            product.descripcion,
             product.price,
             product.image1,           
             new Date(),

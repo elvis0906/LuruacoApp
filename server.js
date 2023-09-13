@@ -25,6 +25,7 @@ const usersRoutes = require('./routes/userRoutes');
 const productRoutes = require('./routes/productRoutes')
 const addressRoutes = require('./routes/addressRoutes')
 const ordersRoutes = require('./routes/orderRoutes')
+//const dotenv = require('./prueba.js')
 
 const port = process.env.PORT || 3000
 
@@ -34,7 +35,8 @@ app.use(express.urlencoded({
     extended: true
 }))
 
-dotenv.config({path: './env/.env'})
+//dotenv.config({path: './prueba.js'})
+
 
 app.use(cors());
 app.use(passport.initialize())
@@ -44,7 +46,7 @@ require('./config/passport')(passport)
 
 app.disable('x-powered-by')
 
-app.set('port', port)
+///app.set('port', port)
 
 /*
 * LLAMADO A LOS SOCKETS
@@ -63,9 +65,13 @@ addressRoutes(app)
 productRoutes(app, upload)
 ordersRoutes(app)
 
-server.listen(3000, '192.168.1.6' || 'localhost', function(){
-    console.log('Aplicación de NodeJS ' + port +  ' Iniciando...')
-}) 
+// server.listen(3000, '192.168.1.60' || 'localhost', function(){
+//     console.log('Aplicación de NodeJS ' + port +  ' Iniciando...')
+// }) 
+
+
+server.listen(port)
+console.log("Sever running on port dotenv")
 
 app.get('/', (req, res) =>{
     res.send('Ruta Raiz del Backend')

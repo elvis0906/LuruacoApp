@@ -6,9 +6,9 @@ const db = mysql.createConnection({
     host: 'aws.connect.psdb.cloud',
     user: 'g4xvbm3tz3h6otjpp4tt',
     password: 'pscale_pw_vgrC4PzD8qKNqx5wLvHiF96OR39X6YkabJkQRPa0ZHN',
-    database: 'bd-luruaco_app'
+    database: 'bd-luruaco_app',
   
-   // ssl: {"rejectUnauthorized":true}
+   ssl: {"rejectUnauthorized":true}
 
     //  host: 'localhost',
     // user: 'root',

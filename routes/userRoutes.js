@@ -8,7 +8,7 @@ module.exports = (app, upload) => {
     // DELETE -> ELIMINAR DATOS
 
     app.get('/api/users/findDeliveryMen', passport.authenticate('jwt', { session: false }), usersController.findDeliveryMen);
-    app.get('/api/users/getAll', usersController.getAll);
+    app.get('/api/users/getAll', passport.authenticate('jwt', {session:false}),usersController.getAll);
  
     
     app.post('/api/users/create', usersController.register);
